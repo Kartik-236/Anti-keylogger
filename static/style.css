@@ -1,0 +1,35 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 40px;
+    background-color: #f9f9f9;
+}
+
+h1 {
+    color: #333;
+}
+
+table {
+    border-collapse: collapse;
+    width: 90%;
+    margin-top: 20px;
+}
+
+table, th, td {
+    border: 1px solid #ccc;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+
+button {
+    padding: 6px 12px;
+    cursor: pointer;
+}
+
+pre {
+    background-color: #eee;
+    padding: 15px;
+    border-radius: 5px;
+}

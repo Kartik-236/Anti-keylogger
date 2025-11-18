@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Live Capture</title>
+    <style>
+        body {
+            font-family: monospace;
+            background-color: #0d1117;
+            color: #e6edf3;
+            padding: 20px;
+        }
+        h2 {
+            text-align: center;
+            color: #58a6ff;
+        }
+        #capture-box {
+            background-color: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 12px;
+            height: 400px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+        }
+        .status {
+            text-align: center;
+            font-size: 0.9em;
+            color: #8b949e;
+        }
+    </style>
+</head>
+<body>
+    <h2>Live Keystroke Capture</h2>
+    <div class="status" id="status">Connecting to stream...</div>
+    <pre id="capture-box">[Waiting for keystrokes...]\n</pre>
+
+    <script>
+        const box = document.getElementById("capture-box");
+        const status = document.getElementById("status");
+
+        const source = new EventSource("/stream");
+
+        source.onopen = () => {
+            status.textContent = "✅ Connected to live stream";
+        };
+
+        source.onmessage = (event) => {
+            if (event.data.trim() !== "") {
+                box.textContent += "\n" + event.data;
+                box.scrollTop = box.scrollHeight;
+            }
+        };
+
+        source.onerror = () => {
+            status.textContent = "⚠️ Disconnected — retrying...";
+        };
+    </script>
+</body>
+</html>

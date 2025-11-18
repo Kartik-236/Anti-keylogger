@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Anti-Keylogger Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Anti-Keylogger Dashboard</h1>
+    <button onclick="location.href='/start_capture'">Start Capture</button>
+    <button onclick="location.href='/stop_capture'">Stop Capture</button>
+    <button onclick="location.href='/delete_all'">Delete All Archives</button>
+    <a href="/live">Live Capture</a>
+
+    <h2>Archived Logs</h2>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Size</th>
+            <th>Modified</th>
+            <th>Actions</th>
+        </tr>
+        {% for a in archives %}
+        <tr>
+            <td>{{ a.name }}</td>
+            <td>{{ a.size }} bytes</td>
+            <td>{{ a.mtime }}</td>
+            <td>
+                <a href="/view/{{ a.name }}">View</a> |
+                <a href="/download/{{ a.name }}">Download</a> |
+                <a href="/delete/{{ a.name }}">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

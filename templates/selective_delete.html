@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Selective Delete | Anti-Keylogger</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Roboto, sans-serif;
+      background: #0d1117;
+      color: #e6edf3;
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 240px;
+      background: #161b22;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sidebar h2 {
+      color: #58a6ff;
+      text-align: center;
+      margin-bottom: 25px;
+      font-weight: 600;
+    }
+
+    .sidebar a {
+      color: #e6edf3;
+      text-decoration: none;
+      display: block;
+      padding: 10px 15px;
+      border-radius: 8px;
+      margin-bottom: 8px;
+      transition: all 0.2s ease;
+    }
+
+    .sidebar a:hover, .sidebar a.active {
+      background: #238636;
+      color: white;
+    }
+
+    /* Main section */
+    .main {
+      flex-grow: 1;
+      padding: 25px;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      color: #58a6ff;
+      margin-bottom: 20px;
+    }
+
+    form {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      padding: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      color: #c9d1d9;
+    }
+
+    th, td {
+      padding: 10px;
+      border-bottom: 1px solid #30363d;
+      font-size: 14px;
+    }
+
+    th {
+      text-align: left;
+      color: #8b949e;
+    }
+
+    tr:hover {
+      background: #1c2128;
+    }
+
+    .delete-btn {
+      background: #d73a49;
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 6px;
+      margin-top: 15px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .delete-btn:hover {
+      background: #f85149;
+    }
+
+    .footer {
+      margin-top: 15px;
+      text-align: center;
+      font-size: 13px;
+      color: #8b949e;
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <h2>Anti-Keylogger</h2>
+    <a href="{{ url_for('dashboard') }}">Dashboard</a>
+    <a href="{{ url_for('live_capture') }}">Live Capture</a>
+    <a href="{{ url_for('selective_delete') }}" class="active">Delete Archives</a>
+  </div>
+
+  <div class="main">
+    <h1>🗑️ Selective Delete</h1>
+    <form method="POST" action="{{ url_for('selective_delete') }}">
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th>File Name</th>
+            <th>Size</th>
+            <th>Last Modified</th>
+            <th>Location</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% if files %}
+            {% for file in files %}
+            <tr>
+              <td><input type="checkbox" name="delete_files" value="{{ file.name }}"></td>
+              <td>{{ file.name }}</td>
+              <td>{{ (file.size / 1024) | round(2) }} KB</td>
+              <td>{{ file.mtime | datetimeformat }}</td>
+              <td>{{ file.location }}</td>
+            </tr>
+            {% endfor %}
+          {% else %}
+            <tr><td colspan="5">No archive files found.</td></tr>
+          {% endif %}
+        </tbody>
+      </table>
+
+      <button type="submit" class="delete-btn">Delete Selected</button>
+    </form>
+
+    <div class="footer">Securely remove selected encrypted log archives.</div>
+  </div>
+</body>
+</html>
