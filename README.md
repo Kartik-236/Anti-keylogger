@@ -19,19 +19,6 @@ Delete logs by age, size, or perform full cleanup.
 Modular Architecture
 Each feature is implemented as a separate Python module for clarity and extensibility.
 
-Project Structure
-anti-keylogger/
-├── agent.py                # Main runner
-├── capture_controller.py   # Keyboard capture logic
-├── device_monitor.py       # USB/HID monitoring
-├── dashboard_app.py        # Flask dashboard
-├── encrypt_utils.py        # Encryption & obfuscation
-├── selective_delete.py     # Log cleanup
-├── static/                 # CSS, JS
-├── templates/              # Dashboard HTML
-├── requirements.txt
-└── present.sh
-
 Installation
 git clone https://github.com/<your-username>/anti-keylogger.git
 cd anti-keylogger
