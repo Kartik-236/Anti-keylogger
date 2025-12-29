@@ -1,95 +1,63 @@
 Anti-Keylogger & Real-Time Monitoring System
 
-A modular, Python-based anti-keylogger and activity monitoring system designed for cybersecurity research and defensive security. The project securely captures keystrokes, monitors connected devices, encrypts logs, and provides a real-time web dashboard for safe analysis.
+A modular Python-based defensive security tool for researching and detecting keylogging behavior and suspicious input devices. The system captures keyboard activity in a privacy-preserving manner, encrypts all logs, monitors connected devices, and provides a real-time web dashboard for safe analysis.
 
-Features
+Key Features
 
 Anti-Keylogging Engine
-Captures keystrokes and converts them into obfuscated text before storing, preventing leakage of sensitive information.
+Captures keyboard events and immediately obfuscates input — no raw keystrokes are stored.
 
 Secure Encryption Layer
-All processed logs pass through a cryptographic wrapper for safe local storage.
+All logs are encrypted before local storage using AES encryption.
 
 Real-Time Monitoring Dashboard
-Flask-based dashboard for live preview, log inspection, and system monitoring.
+Flask-based dashboard for live activity preview, log inspection, and system status.
 
-Device Activity Detection
-Identifies newly connected USB/HID devices and alerts on suspicious keyboard-like hardware.
-
-Selective Log Deletion
-Tools to delete logs by age, size, or via full cleanup.
+Selective Log Management
+Delete logs by age, size, or perform full cleanup.
 
 Modular Architecture
-Each feature is implemented in a dedicated Python module for easier understanding and extension.
+Each feature is implemented as a separate Python module for clarity and extensibility.
 
 Project Structure
 anti-keylogger/
-│
 ├── agent.py                # Main runner
 ├── capture_controller.py   # Keyboard capture logic
 ├── device_monitor.py       # USB/HID monitoring
-├── dashboard_app.py        # Flask dashboard server
-├── encrypt_utils.py        # Encryption and obfuscation utilities
-├── selective_delete.py     # Log cleanup utilities
-│
+├── dashboard_app.py        # Flask dashboard
+├── encrypt_utils.py        # Encryption & obfuscation
+├── selective_delete.py     # Log cleanup
 ├── static/                 # CSS, JS
-├── templates/              # HTML templates for dashboard
-│
-├── requirements.txt        # Project dependencies
-└── present.sh              # Optional script for launching services
+├── templates/              # Dashboard HTML
+├── requirements.txt
+└── present.sh
 
 Installation
-1. Clone the Repository
 git clone https://github.com/<your-username>/anti-keylogger.git
 cd anti-keylogger
-
-2. Create a Virtual Environment (Recommended)
 python3 -m venv venv
-source venv/bin/activate      # Linux/Mac
-venv\Scripts\activate         # Windows
-
-3. Install Dependencies
+source venv/bin/activate    # Linux/Mac
 pip install -r requirements.txt
 
 Usage
-Start the Anti-Keylogger Agent
 
-(Requires sudo/root permissions on Linux)
+Start the agent (Linux requires root for input events):
 
 sudo python3 agent.py
 
-Launch the Real-Time Dashboard
+
+Launch dashboard:
+
 python3 dashboard_app.py
 
 
-Open in browser:
-http://127.0.0.1:5000
+Open: http://127.0.0.1:5000
 
-Run Selective Log Cleanup
+Log cleanup:
+
 python3 selective_delete.py
 
-How It Works
-Keyboard Capture
-
-The capture_controller.py module listens to low-level keyboard events and immediately obfuscates all captured input.
-
-Encryption Layer
-
-encrypt_utils.py encrypts logs using a secure key. No raw keystrokes are ever stored.
-
-Monitoring Dashboard
-
-The Flask dashboard renders live output, system status, and device changes, ensuring safe real-time monitoring.
-
-Device Activity Tracking
-
-device_monitor.py tracks newly connected or removed devices to detect potential hardware keyloggers or rogue USB inputs.
-
-Log Management
-
-selective_delete.py provides functions to purge outdated or oversized logs based on user-defined rules.
-
-Technologies Used
+Technologies
 
 Python 3
 
@@ -97,31 +65,21 @@ Flask
 
 PyCryptodome / Fernet
 
-Linux input event handling (/dev/input/)
+Linux /dev/input event handling
 
 HTML, CSS, JavaScript
 
-Security & Ethics Disclaimer
+Security & Ethics
 
-This project is built only for educational, research, and defensive purposes.
-Do not use it to capture keystrokes on systems without proper authorization. Misuse may violate privacy laws and cybersecurity regulations.
-You are solely responsible for ethical use.
+This project is intended only for educational, research, and defensive security purposes.
+Do not use it without proper authorization. You are responsible for ethical and legal use.
 
-Contribution Guidelines
+Contributions
 
-Contributions are welcome.
-You may help by improving:
+Contributions are welcome, especially for:
 
-UI/UX of the dashboard
+UI/UX improvements
 
-Device monitoring logic
+Enhanced device monitoring
 
-Multi-platform support (Windows/Mac)
-
-Documentation and examples
-
-Please open an issue or submit a PR for discussion.
-
-Support
-
-If you find this project helpful, consider starring ⭐ the repository.
+Documentation
